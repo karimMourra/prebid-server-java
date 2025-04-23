@@ -1,6 +1,4 @@
 mappers:
-  - match: request_time*
-    name: request_time_seconds
   - match: requests.*.*
     name: requests.status.type
     labels:
@@ -151,10 +149,15 @@ mappers:
       adapter: ${0}
       type: ${1}
   - match: adapter.*.requests.*
-    name: adapter.requests.result
+    name: adapter_requests
     labels:
       adapter: ${0}
       result: ${1}
+  - match: adapter.*.requests.(badinput|badserverresponse|timeout|unknown_error)
+    name: adapter_errors
+    labels:
+      adapter: ${0}
+      error: ${1}
   - match: adapter.*.bids_received
     name: adapter.bids_received
     labels:
