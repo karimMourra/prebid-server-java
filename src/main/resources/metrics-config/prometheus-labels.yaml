@@ -153,11 +153,27 @@ mappers:
     labels:
       adapter: ${0}
       result: ${1}
-  - match: adapter.*.requests.(badinput|badserverresponse|timeout|unknown_error)
+  - match: adapter.*.requests.badinput
     name: adapter_errors
     labels:
       adapter: ${0}
-      error: ${1}
+      error: badinput
+  - match: adapter.*.requests.badserverresponse
+    name: adapter_errors
+    labels:
+      adapter: ${0}
+      error: badserverresponse
+
+  - match: adapter.*.requests.timeout
+    name: adapter_errors
+    labels:
+      adapter: ${0}
+      error: timeout
+  - match: adapter.*.requests.unknown_error
+    name: adapter_errors
+    labels:
+      adapter: ${0}
+      error: unknown_error
   - match: adapter.*.bids_received
     name: adapter.bids_received
     labels:
