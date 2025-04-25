@@ -1,4 +1,87 @@
 mappers:
+  - match: adapter.*.request_time
+    name: adapter_request_time_seconds
+    labels:
+      adapter: ${0}
+  - match: request_time.*
+    name: request_time_seconds
+  - match: adapter.*.requests.*
+    name: adapter_requests
+    labels:
+      adapter: ${0}
+      result: ${1}
+  - match: adapter.*.requests.gotbids
+    name: adapter_requests
+    labels:
+      adapter: ${0}
+      has_bids: true
+  - match: cookie_sync_requests.opt_outs
+    name: cookie_sync_requests
+    labels:
+      status: opt_out
+  - match: cookie_sync_requests.bad_requests
+    name: cookie_sync_requests
+    labels:
+      status: bad_request
+  - match: cookie_sync_requests.sets
+    name: cookie_sync_requests
+    labels:
+      status: ok
+  - match: cookie_sync_requests.blocked
+    name: cookie_sync_requests
+    labels:
+      status: gdpr_blocked_host_cookie
+  - match: cookie_sync_requests.sizeblocked
+    name: cookie_sync_requests
+    labels:
+      status: bad_request
+  - match: cookie_sync_requests.invalid
+    name: cookie_sync_requests
+    labels:
+      status: acct_invalid
+  - match: usersync.*
+    name: setuid_requests
+  - match: requests.*.*
+    name: requests
+    labels:
+      request_status: ${0}
+      request_type: ${1}
+  - match: adapter.*.no_cookie_requests.type.*
+    name: requests_without_cookie
+    labels:
+      adapter: ${0}
+      request_type: ${1}
+  - match: adapter.*.requests.badinput
+    name: adapter_errors
+    labels:
+      adapter: ${0}
+      adapter_error: badinput
+  - match: adapter.*.requests.badserverresponse
+    name: adapter_errors
+    labels:
+      adapter: ${0}
+      adapter_error: badserverresponse
+  - match: adapter.*.requests.timeout
+    name: adapter_errors
+    labels:
+      adapter: ${0}
+      adapter_error: timeout
+  - match: adapter.*.requests.failedtorequestbids
+      name: adapter_errors
+      labels:
+        adapter: ${0}
+        adapter_error: failedtorequestbids
+  - match: adapter.*.requests.bid_validation
+      name: adapter_errors
+      labels:
+        adapter: ${0}
+        adapter_error: bid_validation
+  - match: adapter.*.requests.unknown_error
+    name: adapter_errors
+    labels:
+      adapter: ${0}
+      adapter_error: unknown_error
+
   - match: requests.*.*
     name: requests.status.type
     labels:
@@ -148,32 +231,6 @@ mappers:
     labels:
       adapter: ${0}
       type: ${1}
-  - match: adapter.*.requests.*
-    name: adapter_requests
-    labels:
-      adapter: ${0}
-      result: ${1}
-  - match: adapter.*.requests.badinput
-    name: adapter_errors
-    labels:
-      adapter: ${0}
-      error: badinput
-  - match: adapter.*.requests.badserverresponse
-    name: adapter_errors
-    labels:
-      adapter: ${0}
-      error: badserverresponse
-
-  - match: adapter.*.requests.timeout
-    name: adapter_errors
-    labels:
-      adapter: ${0}
-      error: timeout
-  - match: adapter.*.requests.unknown_error
-    name: adapter_errors
-    labels:
-      adapter: ${0}
-      error: unknown_error
   - match: adapter.*.bids_received
     name: adapter.bids_received
     labels:
