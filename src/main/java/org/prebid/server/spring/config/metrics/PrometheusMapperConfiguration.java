@@ -3,6 +3,7 @@ package org.prebid.server.spring.config.metrics;
 import io.prometheus.client.dropwizard.samplebuilder.MapperConfig;
 import lombok.Data;
 import org.prebid.server.spring.env.YamlPropertySourceFactory;
+//import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -16,8 +17,9 @@ import java.util.List;
 import java.util.Map;
 
 @Configuration
-@ConditionalOnProperty(value = "metrics.prometheus.custom-labels-enabled", havingValue = "true")
-@PropertySource(value = "classpath:/metrics-config/prometheus-labels.yaml", factory = YamlPropertySourceFactory.class)
+@ConditionalOnProperty(value = "metrics.prometheus.custom-mapper-enabled", havingValue = "true")
+@PropertySource(value = "file:${metrics.prometheus.custom-mapper-config-filename}", factory = YamlPropertySourceFactory.class)
+//@PropertySource(value = @Value("${metrics.prometheus.custom-mapper-config-filename}"), factory = YamlPropertySourceFactory.class)
 public class PrometheusMapperConfiguration {
 
     @Bean
