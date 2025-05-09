@@ -74,14 +74,14 @@ public class ConnatixBidder implements Bidder<BidRequest> {
 
         if (device == null
                 || (device.getIp() == null && device.getIpv6() == null)) {
-            return Result.withError(BidderError.badInput("Device IP is required"));
+            return Result.withError(BidderError.bad_ip("Device IP is required"));
         }
 
         final String optimalEndpointUrl;
         try {
             optimalEndpointUrl = getOptimalEndpointUrl(request);
         } catch (PreBidException e) {
-            return Result.withError(BidderError.badInput(e.getMessage()));
+            return Result.withError(BidderError.bad_endpoint(e.getMessage()));
         }
 
         final String displayManagerVer = buildDisplayManagerVersion(request);
@@ -97,7 +97,7 @@ public class ConnatixBidder implements Bidder<BidRequest> {
 
                 httpRequests.add(makeHttpRequest(request, modifiedImp, headers, optimalEndpointUrl));
             } catch (PreBidException e) {
-                errors.add(BidderError.badInput(e.getMessage()));
+                errors.add(BidderError.bad_imp(e.getMessage()));
             }
         }
 
@@ -234,7 +234,7 @@ public class ConnatixBidder implements Bidder<BidRequest> {
 
             return Result.withValues(bids);
         } catch (DecodeException | PreBidException e) {
-            return Result.withError(BidderError.badServerResponse(e.getMessage()));
+            return Result.withError(BidderError.bad_decode(e.getMessage()));
         }
     }
 

@@ -37,12 +37,24 @@ public class BidderError {
         return BidderError.of(message, Type.bad_input);
     }
 
-    public static BidderError badServerResponse(String message) {
-        return BidderError.of(message, Type.bad_server_response);
+    public static BidderError bad_endpoint(String message) {
+        return BidderError.of(message, Type.bad_endpoint);
     }
 
-    public static BidderError rejectedIpf(String message, String impId) {
-        return BidderError.of(message, Type.rejected_ipf, Collections.singleton(impId));
+    public static BidderError bad_ip(String message) {
+        return BidderError.of(message, Type.bad_ip);
+    }
+
+    public static BidderError bad_imp(String message) {
+        return BidderError.of(message, Type.bad_imp);
+    }
+
+    public static BidderError bad_decode(String message) {
+        return BidderError.of(message, Type.bad_decode);
+    }
+
+    public static BidderError badServerResponse(String message) {
+        return BidderError.of(message, Type.bad_server_response);
     }
 
     public static BidderError failedToRequestBids(String message) {
@@ -96,6 +108,10 @@ public class BidderError {
         rejected_ipf(6),
 
         timeout(1),
+        bad_endpoint(10),
+        bad_ip(11),
+        bad_imp(12),
+        bad_decode(13),
         generic(999);
 
         private final Integer code;

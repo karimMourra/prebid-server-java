@@ -1409,6 +1409,10 @@ public class ExchangeService {
             case timeout -> MetricName.timeout;
             case invalid_bid -> MetricName.bid_validation;
             case rejected_ipf, generic -> MetricName.unknown_error;
+            case bad_decode -> MetricName.bad_decode;
+            case bad_endpoint -> MetricName.bad_endpoint;
+            case bad_imp -> MetricName.bad_imp;
+            case bad_ip -> MetricName.bad_ip;
         };
     }
 }
