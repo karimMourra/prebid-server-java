@@ -53,6 +53,10 @@ public class BidderError {
         return BidderError.of(message, Type.bad_decode);
     }
 
+    public static BidderError rejectedIpf(String message, String impId) {
+        return BidderError.of(message, Type.rejected_ipf, Collections.singleton(impId));
+    }
+
     public static BidderError badServerResponse(String message) {
         return BidderError.of(message, Type.bad_server_response);
     }
