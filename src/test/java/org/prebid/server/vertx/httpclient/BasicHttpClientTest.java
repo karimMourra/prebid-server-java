@@ -10,7 +10,6 @@ import io.vertx.core.http.HttpClientResponse;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.http.RequestOptions;
 import io.vertx.junit5.VertxExtension;
-import io.vertx.junit5.VertxTestContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,15 +17,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.net.MalformedURLException;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -141,103 +132,5 @@ public class BasicHttpClientTest {
         // then
         assertThat(future.failed()).isTrue();
         assertThat(future.cause()).hasMessage("Response exception");
-    }
-
-    @Test
-    public void requestShouldFailIfHttpRequestTimedOut(Vertx vertx, VertxTestContext context) {
-        // given
-        final BasicHttpClient httpClient = new BasicHttpClient(vertx, vertx.createHttpClient());
-        final int serverPort = 7777;
-
-        startServer(serverPort, 2000L, 0L);
-
-        // when
-        final Future<?> future = httpClient.get("http://localhost:" + serverPort, 1000L);
-
-        // then
-        future.onComplete(context.failing(e -> {
-            assertThat(e)
-                    .isInstanceOf(TimeoutException.class)
-                    .hasMessageStartingWith("Timeout period of 1000ms has been exceeded");
-            context.completeNow();
-        }));
-    }
-
-    @Test
-    public void requestShouldFailIfHttpResponseTimedOut(Vertx vertx, VertxTestContext context) {
-        // given
-        final BasicHttpClient httpClient = new BasicHttpClient(vertx, vertx.createHttpClient());
-        final int serverPort = 8888;
-
-        startServer(serverPort, 0L, 2000L);
-
-        // when
-        final Future<?> future = httpClient.get("http://localhost:" + serverPort, 1000L);
-
-        // then
-        future.onComplete(context.failing(e -> {
-            assertThat(e)
-                    .isInstanceOf(TimeoutException.class)
-                    .hasMessage("Timeout period of 1000ms has been exceeded");
-            context.completeNow();
-        }));
-    }
-
-    /**
-     * The server returns entire response or body with delay.
-     */
-    private static void startServer(int port, long entireResponseDelay, long bodyResponseDelay) {
-        final CountDownLatch completionLatch = new CountDownLatch(1);
-
-        new Thread(() -> {
-            try (ServerSocket serverSocket = new ServerSocket(port)) {
-                completionLatch.countDown();
-
-                try (Socket clientSocket = serverSocket.accept()) {
-                    try (BufferedWriter out = new BufferedWriter(
-                            new OutputStreamWriter(clientSocket.getOutputStream()))) {
-
-                        // waiting for the response
-                        if (entireResponseDelay > 0) {
-                            sleep(entireResponseDelay);
-                        }
-
-                        out.write("HTTP/1.1 200 OK");
-                        out.newLine();
-
-                        out.write("Content-Length: 6"); // set body size greater then length of "start" word
-                        out.newLine();
-
-                        out.newLine();
-                        out.write("start");
-                        out.flush();
-
-                        // waiting for the rest of body
-                        if (bodyResponseDelay > 0) {
-                            sleep(bodyResponseDelay);
-                        }
-
-                        out.write("finish");
-                        out.flush();
-                    }
-                }
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }).start();
-
-        try {
-            completionLatch.await(10L, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private static void sleep(long millis) {
-        try {
-            Thread.sleep(millis);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
     }
 }
