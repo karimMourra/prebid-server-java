@@ -282,6 +282,16 @@ public class HttpBidderRequester {
                 return BidderError.create("bot_traffic", BidderError.Type.bot_traffic);
             } else if (statusCode == 429) {
                 return BidderError.create("request_limit_reached", BidderError.Type.request_limit_reached);
+            } else if (statusCode >= 500 && statusCode < 600) {
+                return BidderError.create("five_xx", BidderError.Type.five_xx);
+            } else if (statusCode > 400 && statusCode < 500) {
+                return BidderError.create("four_xx", BidderError.Type.four_xx);
+            } else if (statusCode >= 300 && statusCode < 400) {
+                return BidderError.create("three_xx", BidderError.Type.three_xx);
+            } else if (statusCode > 200 && statusCode < 300) {
+                return BidderError.create("two_xx", BidderError.Type.two_xx);
+            } else if (statusCode >= 100 && statusCode < 200) {
+                return BidderError.create("one_xx", BidderError.Type.one_xx);
             }
             return BidderError.create(
                     "Unexpected status code: " + statusCode + ". Run with request.test = 1 for more info",
