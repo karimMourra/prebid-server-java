@@ -168,6 +168,8 @@ public class BidderError {
         bad_input_two(25),
         bad_server_response_two(26),
         bad_server_response_three(27),
+        bot_traffic(28),
+        request_excess(29),
         generic1(9991),
         generic2(9992),
         generic3(9993),
