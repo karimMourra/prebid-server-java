@@ -26,7 +26,7 @@ public class BidderError {
     }
 
     public static BidderError generic(String message) {
-        return BidderError.of(message, Type.generic);
+        return BidderError.of(message, Type.generic7);
     }
 
     public static BidderError invalidBid(String message) {
@@ -35,6 +35,26 @@ public class BidderError {
 
     public static BidderError badInput(String message) {
         return BidderError.of(message, Type.bad_input);
+    }
+
+    public static BidderError emptyMediaTypes(String message) {
+        return BidderError.of(message, Type.empty_media_types);
+    }
+
+    public static BidderError emptyImps(String message) {
+        return BidderError.of(message, Type.empty_imps);
+    }
+
+    public static BidderError impMediaMismatch(String message) {
+        return BidderError.of(message, Type.imp_media_mismatch);
+    }
+
+    public static BidderError no_imps_left(String message) {
+        return BidderError.of(message, Type.no_imps_left);
+    }
+
+    public static BidderError no_imps_left_two(String message) {
+        return BidderError.of(message, Type.no_imps_left_two);
     }
 
     public static BidderError bad_endpoint(String message) {
@@ -73,6 +93,10 @@ public class BidderError {
 
     public static BidderError badServerResponse(String message) {
         return BidderError.of(message, Type.bad_server_response);
+    }
+
+    public static BidderError badServerResponseThree(String message) {
+        return BidderError.of(message, Type.bad_server_response_three);
     }
 
     public static BidderError failedToRequestBids(String message) {
@@ -136,12 +160,22 @@ public class BidderError {
         deprecated_bidder(17),
         got_native(18),
         targeting_issue(19),
+        empty_media_types(20),
+        empty_imps(21),
+        imp_media_mismatch(22),
+        no_imps_left(23),
+        no_imps_left_two(24),
+        bad_input_two(25),
+        bad_server_response_two(26),
+        bad_server_response_three(27),
         generic1(9991),
         generic2(9992),
         generic3(9993),
         generic4(9994),
         generic5(9995),
         generic6(9996),
+        generic7(9997),
+        generic8(9998),
         generic(999);
 
         private final Integer code;

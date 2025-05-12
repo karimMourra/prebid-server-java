@@ -1408,7 +1408,8 @@ public class ExchangeService {
             case failed_to_request_bids -> MetricName.failedtorequestbids;
             case timeout -> MetricName.timeout;
             case invalid_bid -> MetricName.bid_validation;
-            case rejected_ipf, generic -> MetricName.unknown_error;
+            case rejected_ipf -> MetricName.rejected_ipf;
+            case generic -> MetricName.generic_error;
             case bad_decode -> MetricName.bad_decode;
             case bad_endpoint -> MetricName.bad_endpoint;
             case bad_imp -> MetricName.bad_imp;
@@ -1418,6 +1419,14 @@ public class ExchangeService {
             case bad_price_floors -> MetricName.bad_price_floors;
             case got_native -> MetricName.got_native;
             case targeting_issue -> MetricName.targeting_issue;
+            case empty_media_types -> MetricName.empty_media_types;
+            case empty_imps -> MetricName.empty_imps;
+            case imp_media_mismatch -> MetricName.imp_media_mismatch;
+            case no_imps_left -> MetricName.no_imps_left;
+            case no_imps_left_two -> MetricName.no_imps_left_two;
+            case bad_input_two -> MetricName.bad_input_two;
+            case bad_server_response_two -> MetricName.bad_server_response_two;
+            case bad_server_response_three -> MetricName.bad_server_response_three;
             case generic1 -> MetricName.generic_one;
             case generic2 -> MetricName.generic_two;
             case generic3 -> MetricName.generic_three;
@@ -1425,6 +1434,8 @@ public class ExchangeService {
             case generic5 -> MetricName.generic_five;
             case generic6 -> MetricName.generic_six;
             case deprecated_bidder -> MetricName.deprecated_bidder;
+            case generic7 -> MetricName.generic_seven;
+            case generic8 -> MetricName.generic_eight;
         };
     }
 }

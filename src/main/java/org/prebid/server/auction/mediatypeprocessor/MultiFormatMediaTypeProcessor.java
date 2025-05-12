@@ -65,7 +65,7 @@ public class MultiFormatMediaTypeProcessor implements MediaTypeProcessor {
                 .toList();
 
         if (updatedImps.isEmpty()) {
-            errors.add(BidderError.badInput("Bid request contains 0 impressions after filtering."));
+            errors.add(BidderError.no_imps_left("Bid request contains 0 impressions after filtering."));
             return MediaTypeProcessingResult.rejected(errors);
         }
 
@@ -127,7 +127,7 @@ public class MultiFormatMediaTypeProcessor implements MediaTypeProcessor {
         };
 
         if (updatedImp == null) {
-            errors.add(BidderError.badInput("Imp " + imp.getId() + " does not have a media type after filtering "
+            errors.add(BidderError.no_imps_left_two("Imp " + imp.getId() + " does not have a media type after filtering "
                     + "and has been removed from the request for this bidder."));
         }
         return updatedImp;

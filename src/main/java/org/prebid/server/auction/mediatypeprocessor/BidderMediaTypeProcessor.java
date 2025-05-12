@@ -44,7 +44,7 @@ public class BidderMediaTypeProcessor implements MediaTypeProcessor {
         final Set<MediaType> supportedMediaTypes = extractSupportedMediaTypes(bidRequest, resolvedBidderName);
         if (supportedMediaTypes.isEmpty()) {
             return MediaTypeProcessingResult.rejected(Collections.singletonList(
-                    BidderError.badInput("Bidder does not support any media types.")));
+                    BidderError.emptyMediaTypes("Bidder does not support any media types.")));
         }
 
         final List<BidderError> errors = new ArrayList<>();
@@ -85,7 +85,7 @@ public class BidderMediaTypeProcessor implements MediaTypeProcessor {
                 .collect(Collectors.toList());
 
         if (modifiedImps.isEmpty()) {
-            errors.add(BidderError.badInput("Bid request contains 0 impressions after filtering."));
+            errors.add(BidderError.emptyImps("Bid request contains 0 impressions after filtering."));
             return null;
         }
 
@@ -101,7 +101,7 @@ public class BidderMediaTypeProcessor implements MediaTypeProcessor {
         }
 
         if (impMediaTypes.equals(unsupportedMediaTypes)) {
-            errors.add(BidderError.badInput("Imp " + imp.getId() + " does not have a supported media type "
+            errors.add(BidderError.impMediaMismatch("Imp " + imp.getId() + " does not have a supported media type "
                     + "and has been removed from the request for this bidder."));
 
             return null;

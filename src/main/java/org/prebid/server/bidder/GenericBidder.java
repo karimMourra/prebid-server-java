@@ -44,7 +44,7 @@ public class GenericBidder implements Bidder<BidRequest> {
             final BidResponse bidResponse = mapper.decodeValue(httpCall.getResponse().getBody(), BidResponse.class);
             return Result.withValues(extractBids(httpCall.getRequest().getPayload(), bidResponse));
         } catch (DecodeException e) {
-            return Result.withError(BidderError.badServerResponse(e.getMessage()));
+            return Result.withError(BidderError.badServerResponseThree(e.getMessage()));
         }
     }
 
