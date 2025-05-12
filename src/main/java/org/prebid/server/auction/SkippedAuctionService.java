@@ -122,7 +122,7 @@ public class SkippedAuctionService {
 
     private static Map<String, List<ExtBidderError>> extractContextWarnings(AuctionContext auctionContext) {
         final List<ExtBidderError> contextWarnings = auctionContext.getDebugWarnings().stream()
-                .map(message -> ExtBidderError.of(BidderError.Type.generic.getCode(), message))
+                .map(message -> ExtBidderError.of(BidderError.Type.generic2.getCode(), message))
                 .toList();
 
         return contextWarnings.isEmpty()

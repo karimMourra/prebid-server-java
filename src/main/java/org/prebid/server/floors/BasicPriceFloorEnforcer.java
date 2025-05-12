@@ -241,7 +241,7 @@ public class BasicPriceFloorEnforcer implements PriceFloorEnforcer {
             logger.debug(logMessage);
             conditionalLogger.error(logMessage, 0.01d);
             metrics.updatePriceFloorGeneralAlertsMetric(MetricName.err);
-            errors.add(BidderError.badServerResponse("Price floors enforcement failed: " + e.getMessage()));
+            errors.add(BidderError.bad_price_floors("Price floors enforcement failed: " + e.getMessage()));
 
             return null;
         }

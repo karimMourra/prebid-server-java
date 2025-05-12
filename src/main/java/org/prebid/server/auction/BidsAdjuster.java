@@ -79,7 +79,7 @@ public class BidsAdjuster {
 
         final List<String> requestCurrencies = bidRequest.getCur();
         if (requestCurrencies.size() > 1) {
-            warnings.add(BidderError.badInput(
+            warnings.add(BidderError.bad_currencies_multiple(
                     "a single currency (" + requestCurrencies.getFirst() + ") has been chosen for the request. "
                             + "ORTB 2.6 requires that all responses are in the same currency."));
         }

@@ -108,7 +108,7 @@ public class AnalyticsTagsEnricher {
 
         final List<ExtBidderError> updatedPrebidWarnings = new ArrayList<>(prebidWarnings);
         updatedPrebidWarnings.add(ExtBidderError.of(
-                BidderError.Type.generic.getCode(),
+                BidderError.Type.generic1.getCode(),
                 "analytics.options.enableclientdetails not enabled for account"));
         final Map<String, List<ExtBidderError>> updatedWarnings = new HashMap<>(warnings);
         updatedWarnings.put(BidResponseCreator.DEFAULT_DEBUG_KEY, updatedPrebidWarnings);

@@ -53,6 +53,20 @@ public class BidderError {
         return BidderError.of(message, Type.bad_decode);
     }
 
+    public static BidderError bad_price_floors(String message) {
+        return BidderError.of(message, Type.bad_price_floors);
+    }
+
+    public static BidderError bad_currency(String message) {
+        return BidderError.of(message, Type.bad_currency);
+    }
+
+    public static BidderError bad_currencies_multiple(String message) {
+        return BidderError.of(message, Type.bad_currencies_multiple);
+    }
+
+
+
     public static BidderError rejectedIpf(String message, String impId) {
         return BidderError.of(message, Type.rejected_ipf, Collections.singleton(impId));
     }
@@ -116,6 +130,18 @@ public class BidderError {
         bad_ip(11),
         bad_imp(12),
         bad_decode(13),
+        bad_price_floors(14),
+        bad_currency(15),
+        bad_currencies_multiple(16),
+        deprecated_bidder(17),
+        got_native(18),
+        targeting_issue(19),
+        generic1(9991),
+        generic2(9992),
+        generic3(9993),
+        generic4(9994),
+        generic5(9995),
+        generic6(9996),
         generic(999);
 
         private final Integer code;

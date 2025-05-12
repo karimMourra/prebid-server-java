@@ -1120,7 +1120,7 @@ public class ExchangeService {
             return processReject(
                     auctionContext,
                     BidRejectionReason.REQUEST_BLOCKED_UNACCEPTABLE_CURRENCY,
-                    List.of(BidderError.generic("No match between the configured currencies and bidRequest.cur")),
+                    List.of(BidderError.bad_currency("No match between the configured currencies and bidRequest.cur")),
                     bidderName);
         }
 
@@ -1413,6 +1413,18 @@ public class ExchangeService {
             case bad_endpoint -> MetricName.bad_endpoint;
             case bad_imp -> MetricName.bad_imp;
             case bad_ip -> MetricName.bad_ip;
+            case bad_currency -> MetricName.bad_currency;
+            case bad_currencies_multiple -> MetricName.bad_currencies_multiple;
+            case bad_price_floors -> MetricName.bad_price_floors;
+            case got_native -> MetricName.got_native;
+            case targeting_issue -> MetricName.targeting_issue;
+            case generic1 -> MetricName.generic_one;
+            case generic2 -> MetricName.generic_two;
+            case generic3 -> MetricName.generic_three;
+            case generic4 -> MetricName.generic_four;
+            case generic5 -> MetricName.generic_five;
+            case generic6 -> MetricName.generic_six;
+            case deprecated_bidder -> MetricName.deprecated_bidder;
         };
     }
 }

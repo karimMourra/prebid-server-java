@@ -1236,7 +1236,7 @@ public class BidResponseCreator {
                 .distinct()
                 .filter(bidderCatalog::isDeprecatedName)
                 .collect(Collectors.toMap(Function.identity(),
-                        bidder -> Collections.singletonList(ExtBidderError.of(BidderError.Type.bad_input.getCode(),
+                        bidder -> Collections.singletonList(ExtBidderError.of(BidderError.Type.deprecated_bidder.getCode(),
                                 bidderCatalog.errorForDeprecatedName(bidder)))));
     }
 
@@ -1264,7 +1264,7 @@ public class BidResponseCreator {
         final List<String> errors = videoStoredDataResult.getErrors();
         if (CollectionUtils.isNotEmpty(errors)) {
             return errors.stream()
-                    .map(message -> ExtBidderError.of(BidderError.Type.generic.getCode(), message))
+                    .map(message -> ExtBidderError.of(BidderError.Type.generic3.getCode(), message))
                     .toList();
         }
         return Collections.emptyList();
@@ -1275,7 +1275,7 @@ public class BidResponseCreator {
      */
     private static List<ExtBidderError> extractContextErrors(AuctionContext auctionContext) {
         return auctionContext.getPrebidErrors().stream()
-                .map(message -> ExtBidderError.of(BidderError.Type.generic.getCode(), message))
+                .map(message -> ExtBidderError.of(BidderError.Type.generic4.getCode(), message))
                 .toList();
     }
 
@@ -1285,7 +1285,7 @@ public class BidResponseCreator {
     private static Map<String, List<ExtBidderError>> extractCacheErrors(CacheServiceResult cacheResult) {
         final Throwable error = cacheResult.getError();
         if (error != null) {
-            final ExtBidderError extBidderError = ExtBidderError.of(BidderError.Type.generic.getCode(),
+            final ExtBidderError extBidderError = ExtBidderError.of(BidderError.Type.generic5.getCode(),
                     error.getMessage());
             return Collections.singletonMap(CACHE, Collections.singletonList(extBidderError));
         }
@@ -1324,7 +1324,7 @@ public class BidResponseCreator {
 
     private static Map<String, List<ExtBidderError>> extractContextWarnings(AuctionContext auctionContext) {
         final List<ExtBidderError> contextWarnings = auctionContext.getDebugWarnings().stream()
-                .map(message -> ExtBidderError.of(BidderError.Type.generic.getCode(), message))
+                .map(message -> ExtBidderError.of(BidderError.Type.generic6.getCode(), message))
                 .toList();
 
         return contextWarnings.isEmpty()
@@ -1523,7 +1523,7 @@ public class BidResponseCreator {
                 modifiedBidAdm = createNativeMarkup(modifiedBidAdm, correspondingImp);
             } catch (PreBidException e) {
                 bidErrors.computeIfAbsent(seat, ignored -> new ArrayList<>())
-                        .add(ExtBidderError.of(BidderError.Type.bad_server_response.getCode(), e.getMessage()));
+                        .add(ExtBidderError.of(BidderError.Type.got_native.getCode(), e.getMessage()));
                 return null;
             }
         }
@@ -1913,7 +1913,7 @@ public class BidResponseCreator {
                     + "Decrease custom prefix length or increase truncateattrchars by "
                     + (prefix.length() + MAX_TARGETING_KEY_LENGTH - truncateAttrChars);
             bidWarnings.computeIfAbsent("targeting", ignored -> new ArrayList<>())
-                    .add(ExtBidderError.of(BidderError.Type.bad_input.getCode(), errorMessage));
+                    .add(ExtBidderError.of(BidderError.Type.targeting_issue.getCode(), errorMessage));
         }
         return StringUtils.isEmpty(prefix) || customPrefixIsNotSuitable
                 ? DEFAULT_TARGETING_KEY_PREFIX
