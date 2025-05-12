@@ -1428,7 +1428,7 @@ public class ExchangeService {
             case bad_server_response_two -> MetricName.bad_server_response_two;
             case bad_server_response_three -> MetricName.bad_server_response_three;
             case bot_traffic -> MetricName.bot_traffic;
-            case request_excess -> MetricName.request_excess;
+            case request_limit_reached -> MetricName.request_limit_reached;
             case generic1 -> MetricName.generic_one;
             case generic2 -> MetricName.generic_two;
             case generic3 -> MetricName.generic_three;

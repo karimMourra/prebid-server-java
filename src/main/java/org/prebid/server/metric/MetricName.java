@@ -85,7 +85,7 @@ public enum MetricName {
     generic_seven,
     generic_eight,
     bot_traffic,
-    request_excess,
+    request_limit_reached,
     bad_imp,
     bad_decode,
     generic_error,

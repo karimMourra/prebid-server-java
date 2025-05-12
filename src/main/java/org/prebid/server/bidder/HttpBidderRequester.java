@@ -279,9 +279,9 @@ public class HttpBidderRequester {
     private static BidderError errorOrNull(int statusCode) {
         if (statusCode != HttpResponseStatus.OK.code() && statusCode != HttpResponseStatus.NO_CONTENT.code()) {
             if (statusCode == HttpResponseStatus.NOT_FOUND.code()) {
-                return BidderError.Type.bot_traffic;
+                return BidderError.create("bot_traffic", BidderError.Type.bot_traffic);
             } else if (statusCode == 429) {
-                return BidderError.Type.request_excess;
+                return BidderError.create("request_limit_reached", BidderError.Type.request_limit_reached);
             }
             return BidderError.create(
                     "Unexpected status code: " + statusCode + ". Run with request.test = 1 for more info",
