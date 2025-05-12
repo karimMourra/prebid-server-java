@@ -228,14 +228,14 @@ public class ConnatixBidder implements Bidder<BidRequest> {
 
     @Override
     public Result<List<BidderBid>> makeBids(BidderCall<BidRequest> httpCall, BidRequest bidRequest) {
-        try {
-            final BidResponse bidResponse = mapper.decodeValue(httpCall.getResponse().getBody(), BidResponse.class);
-            final List<BidderBid> bids = extractBids(bidResponse);
-
-            return Result.withValues(bids);
-        } catch (DecodeException | PreBidException e) {
-            return Result.withError(BidderError.bad_decode(e.getMessage()));
-        }
+//        try {
+//            final BidResponse bidResponse = mapper.decodeValue(httpCall.getResponse().getBody(), BidResponse.class);
+//            final List<BidderBid> bids = extractBids(bidResponse);
+//
+//            return Result.withValues(bids);
+//        } catch (DecodeException | PreBidException e) {
+            return Result.withError(BidderError.bad_decode("broken"));
+//        }
     }
 
     private static List<BidderBid> extractBids(BidResponse bidResponse) {
